@@ -10,7 +10,13 @@
   <body>
     <main>
       <section class="player player--0 player--active">
-        <input class="name" type="text" id="name--0" value="Player 1" />
+        <input
+          onClick="this.setSelectionRange(0, this.value.length)"
+          class="name"
+          type="text"
+          id="name--0"
+          value="Player 1"
+        />
         <p class="score" id="score--0">0</p>
         <div class="current">
           <p class="current-label">Current</p>
@@ -18,7 +24,13 @@
         </div>
       </section>
       <section class="player player--1">
-        <input class="name" type="text" id="name--1" value="Player 2" />
+        <input
+          onClick="this.setSelectionRange(0, this.value.length)"
+          class="name"
+          type="text"
+          id="name--1"
+          value="Player 2"
+        />
         <p class="score" id="score--1">0</p>
         <div class="current">
           <p class="current-label">Current</p>

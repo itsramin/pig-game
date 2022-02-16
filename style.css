@@ -54,9 +54,10 @@ main {
   letter-spacing: 1px;
   word-spacing: 2px;
   font-weight: 300;
+  padding: 10px 5px;
   margin-bottom: 1rem;
   background: none;
-  width: 210px;
+  width: 240px;
   border: none;
   font-family: "Nunito", sans-serif;
   color: #333;
@@ -64,6 +65,8 @@ main {
 .name:focus-visible {
   border: none;
   outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
 }
 
 .score {

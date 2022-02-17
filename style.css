@@ -7,7 +7,7 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 100%;
   box-sizing: border-box;
 }
 
@@ -24,9 +24,8 @@ body {
 
 /* LAYOUT */
 main {
-  position: relative;
-  width: 100rem;
-  height: 60rem;
+  width: 90%;
+  height: 29rem;
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(200px);
   filter: blur();
@@ -34,11 +33,18 @@ main {
   border-radius: 9px;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.playersbox {
+  display: flex;
+  margin-top: 4rem;
+  width: 85%;
 }
 
 .player {
   flex: 50%;
-  padding: 9rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,15 +55,11 @@ main {
 .name {
   text-align: center;
   position: relative;
-  font-size: 4rem;
+  font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  word-spacing: 2px;
-  font-weight: 300;
   padding: 10px 5px;
-  margin-bottom: 1rem;
   background: none;
-  width: 240px;
+  width: 7rem;
   border: none;
   font-family: "Nunito", sans-serif;
   color: #333;
@@ -70,14 +72,14 @@ main {
 }
 
 .score {
-  font-size: 8rem;
-  font-weight: 300;
+  font-size: 3rem;
+
   color: #c7365f;
-  margin-bottom: auto;
 }
 
 .player--active {
   background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 9px;
 }
 .player--active .name {
   /* font-weight: 700; */
@@ -95,21 +97,29 @@ main {
   opacity: 0.8;
   border-radius: 9px;
   color: #fff;
-  width: 65%;
-  padding: 2rem;
+
+  padding: 0.5rem;
   text-align: center;
   transition: all 0.75s;
 }
 
 .current-label {
   text-transform: uppercase;
-  margin-bottom: 1rem;
-  font-size: 1.7rem;
+  /* margin-bottom: 1rem; */
+  font-size: 0.9rem;
   color: #ddd;
 }
 
 .current-score {
-  font-size: 3.5rem;
+  font-size: 1rem;
+}
+.buttons {
+  margin-top: 6.5rem;
+  /* position: relative; */
+  /* display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center; */
 }
 
 /* ABSOLUTE POSITIONED ELEMENTS */
@@ -117,39 +127,38 @@ main {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  width: 10rem;
   color: #444;
   background: none;
   border: none;
   font-family: inherit;
-  font-size: 1.8rem;
+  font-size: 1rem;
   text-transform: uppercase;
   cursor: pointer;
-  font-weight: 400;
   transition: all 0.2s;
-
   background-color: white;
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
 
-  padding: 0.7rem 2.5rem;
+  padding: 0.7rem 1rem;
   border-radius: 50rem;
   box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
 }
 
 .btn::first-letter {
-  font-size: 2.4rem;
+  /* font-size: 2.4rem; */
   display: inline-block;
   margin-right: 0.7rem;
 }
 
 .btn--new {
-  top: 4rem;
+  top: 0.6rem;
 }
 .btn--roll {
-  top: 39.3rem;
+  top: 22rem;
 }
 .btn--hold {
-  top: 46.1rem;
+  top: 25.5rem;
 }
 
 .btn:active {
@@ -162,11 +171,13 @@ main {
 }
 
 .dice {
-  position: absolute;
+  /* position: absolute;
   left: 50%;
   top: 16.5rem;
-  transform: translateX(-50%);
-  height: 10rem;
+  transform: translateX(-50%); */
+  margin-top: 1rem;
+  height: 4rem;
+  width: 4rem;
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
 }
 
@@ -231,4 +242,11 @@ main {
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
   z-index: 5;
+}
+
+@media screen and (min-width: 760px) {
+  .main {
+    width: 90vw;
+    height: 98vh;
+  }
 }

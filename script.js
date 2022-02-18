@@ -24,6 +24,8 @@ const closeModal = document.querySelector(".close-modal");
 const closeinfo = document.querySelector(".closeinfo");
 const howto = document.querySelector(".howto");
 const howtopage = document.querySelector(".howtopage");
+const full = document.querySelector(".full");
+const elem = document.documentElement;
 
 const changeplayer = function () {
   if (player0.classList.contains("player--active")) {
@@ -92,3 +94,30 @@ closeinfo.addEventListener("click", function () {
   overlay.classList.add("hidden");
   howtopage.classList.add("hidden");
 });
+
+function openFullscreen() {
+  let src = full.getAttribute("src");
+  if (src === "full.png") {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) {
+      /* Safari */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      /* IE11 */
+      elem.msRequestFullscreen();
+    }
+    full.setAttribute("src", "unfull.png");
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      /* Safari */
+      document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+      /* IE11 */
+      document.msExitFullscreen();
+    }
+    full.setAttribute("src", "full.png");
+  }
+}

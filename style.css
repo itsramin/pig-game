@@ -249,12 +249,20 @@ main {
 .rotatephone {
   width: 200px;
 }
+.full {
+  position: absolute;
+  left: 90%;
+  top: 1rem;
+  transform: translateX(-50%);
+  width: 1.1rem;
+  cursor: pointer;
+}
 .howto {
   position: absolute;
   left: 96%;
   top: 1rem;
   transform: translateX(-50%);
-  width: 1.3rem;
+  width: 1.1rem;
   cursor: pointer;
 }
 .howtopage {

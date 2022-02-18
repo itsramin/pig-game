@@ -53,8 +53,7 @@ const playDice = function () {
     } else {
       currentScore.textContent = Number(currentScore.textContent) + randNum;
     }
-  }, 1230);
-  // dice.setAttribute("src", diceList[randNum - 1]);
+  }, 1300);
 };
 
 btnroll.addEventListener("click", function () {

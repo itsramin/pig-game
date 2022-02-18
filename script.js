@@ -21,6 +21,9 @@ const player1 = document.querySelector(".player--1");
 const winningpage = document.querySelector(".winningpage");
 const overlay = document.querySelector(".overlay");
 const closeModal = document.querySelector(".close-modal");
+const closeinfo = document.querySelector(".closeinfo");
+const howto = document.querySelector(".howto");
+const howtopage = document.querySelector(".howtopage");
 
 const changeplayer = function () {
   if (player0.classList.contains("player--active")) {
@@ -80,3 +83,12 @@ const newGame = function () {
 };
 btnnew.addEventListener("click", newGame);
 closeModal.addEventListener("click", newGame);
+howto.addEventListener("click", function () {
+  overlay.classList.remove("hidden");
+  howtopage.classList.remove("hidden");
+});
+
+closeinfo.addEventListener("click", function () {
+  overlay.classList.add("hidden");
+  howtopage.classList.add("hidden");
+});

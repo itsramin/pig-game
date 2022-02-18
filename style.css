@@ -411,7 +411,7 @@ main {
       rgba(230, 230, 230, 1) 100%
     );
 
-    z-index: 10;
+    z-index: 15;
     text-align: center;
     color: #333;
     display: flex;

@@ -356,7 +356,9 @@ main {
 }
 @media screen and (orientation: portrait) {
   .orient {
+    position: absolute;
     height: 100%;
+    width: 100%;
     font-size: 1.5rem;
     background: radial-gradient(
       circle,

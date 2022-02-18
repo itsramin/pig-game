@@ -9,6 +9,7 @@
 html {
   font-size: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 body {
@@ -272,9 +273,8 @@ main {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
-
   background-color: white;
-  padding: 2rem;
+  padding: 2rem 3rem;
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 10;

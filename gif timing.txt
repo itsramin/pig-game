@@ -1,0 +1,10 @@
+https://onlinegiftools.com/change-gif-speed
+1: 80ms
+2: 90ms
+3: 100ms
+4: 115ms
+5: 130ms
+6: 150ms
+7:170ms
+8:190ms
+9:210ms

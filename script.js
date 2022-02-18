@@ -6,6 +6,7 @@ const diceList = [
   "dice-4.png",
   "dice-5.png",
   "dice-6.png",
+  "dicegif.gif",
 ];
 const dice = document.querySelector(".dice");
 const btnroll = document.querySelector(".btn--roll");
@@ -36,14 +37,19 @@ const changeplayer = function () {
 
 const playDice = function () {
   dice.classList.remove("hidden");
+  dice.setAttribute("src", diceList[6]);
   let randNum = Math.floor(Math.random() * 6 + 1);
-  if (randNum === 1) {
-    currentScore.textContent = 0;
-    changeplayer();
-  } else {
-    currentScore.textContent = Number(currentScore.textContent) + randNum;
-  }
-  dice.setAttribute("src", diceList[randNum - 1]);
+
+  setTimeout(function () {
+    dice.setAttribute("src", diceList[randNum - 1]);
+    if (randNum === 1) {
+      currentScore.textContent = 0;
+      changeplayer();
+    } else {
+      currentScore.textContent = Number(currentScore.textContent) + randNum;
+    }
+  }, 1230);
+  // dice.setAttribute("src", diceList[randNum - 1]);
 };
 
 btnroll.addEventListener("click", function () {

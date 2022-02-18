@@ -25,7 +25,7 @@ body {
 /* LAYOUT */
 main {
   width: 90%;
-  height: 29rem;
+  height: 94%;
   background-color: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(200px);
   filter: blur();
@@ -38,8 +38,9 @@ main {
 }
 .playersbox {
   display: flex;
-  margin-top: 4rem;
-  width: 85%;
+  margin-top: 3.7rem;
+  width: 90%;
+  height: 100%;
 }
 
 .player {
@@ -49,6 +50,7 @@ main {
   flex-direction: column;
   align-items: center;
   transition: all 0.75s;
+  justify-content: space-around;
 }
 
 /* ELEMENTS */
@@ -73,7 +75,6 @@ main {
 
 .score {
   font-size: 3rem;
-
   color: #c7365f;
 }
 
@@ -81,9 +82,7 @@ main {
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 9px;
 }
-.player--active .name {
-  /* font-weight: 700; */
-}
+
 .player--active .score {
   font-weight: 400;
 }
@@ -98,7 +97,7 @@ main {
   border-radius: 9px;
   color: #fff;
 
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   text-align: center;
   transition: all 0.75s;
 }
@@ -115,11 +114,6 @@ main {
 }
 .buttons {
   margin-top: 6.5rem;
-  /* position: relative; */
-  /* display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  align-items: center; */
 }
 
 /* ABSOLUTE POSITIONED ELEMENTS */
@@ -140,7 +134,7 @@ main {
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(10px);
 
-  padding: 0.7rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 50rem;
   box-shadow: 0 1.75rem 3.5rem rgba(0, 0, 0, 0.1);
 }
@@ -155,14 +149,25 @@ main {
   top: 0.6rem;
 }
 .btn--roll {
-  top: 22rem;
+  bottom: 0.8rem;
+  transform: translateX(-115%);
 }
+
 .btn--hold {
-  top: 25.5rem;
+  bottom: 0.8rem;
+  transform: translateX(13%);
 }
 
 .btn:active {
   transform: translate(-50%, 3px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+.btn--roll:active {
+  transform: translate(-115%, 3px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+.btn--hold:active {
+  transform: translate(13%, 3px);
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
 }
 
@@ -171,13 +176,11 @@ main {
 }
 
 .dice {
-  /* position: absolute;
-  left: 50%;
-  top: 16.5rem;
-  transform: translateX(-50%); */
-  margin-top: 1rem;
-  height: 4rem;
-  width: 4rem;
+  border-radius: 9px;
+  position: absolute;
+  top: 7rem;
+  height: 3.7rem;
+  width: 3.7rem;
   box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.2);
 }
 
@@ -243,8 +246,11 @@ main {
   backdrop-filter: blur(3px);
   z-index: 5;
 }
+.rotatephone {
+  width: 200px;
+}
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 900px) {
   html {
     font-size: 62.5%;
   }
@@ -302,10 +308,18 @@ main {
     top: 4rem;
   }
   .btn--roll {
-    top: 39.3rem;
+    bottom: 16rem;
+    transform: translateX(-50%);
   }
   .btn--hold {
-    top: 46.1rem;
+    bottom: 9rem;
+    transform: translateX(-50%);
+  }
+  .btn--roll:active {
+    transform: translate(-50%, 3px);
+  }
+  .btn--hold:active {
+    transform: translateX(-50%);
   }
 
   .dice {
@@ -338,5 +352,32 @@ main {
     font-size: 4rem;
     width: 70%;
     margin: 1.5rem auto;
+  }
+}
+@media screen and (orientation: portrait) {
+  .orient {
+    height: 100%;
+    font-size: 1.5rem;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 10%,
+      rgba(230, 230, 230, 1) 100%
+    );
+
+    z-index: 10;
+    text-align: center;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .orient p {
+    margin: 1.5rem;
+  }
+}
+@media screen and (orientation: landscape) {
+  .orient {
+    display: none;
   }
 }

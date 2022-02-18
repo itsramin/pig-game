@@ -357,6 +357,8 @@ main {
 @media screen and (orientation: portrait) {
   .orient {
     position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 100%;
     font-size: 1.5rem;

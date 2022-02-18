@@ -13,8 +13,7 @@
   <body>
     <div class="orient">
       <p>Please turn phone to landscape mode.</p>
-
-      <img class="rotatephone" src="rotatedevice.gif" />
+      <img class="rotatephone" src="rotatedevice.gif" alt="rotate phone" />
     </div>
     <main>
       <div class="playersbox">
@@ -47,11 +46,15 @@
           </div>
         </section>
       </div>
-
       <img src="dice-5.png" alt="Playing dice" class="dice hidden" />
       <div class="buttons">
-        <img src="information.png" class="howto" />
-        <img src="full.png" class="full" onclick="openFullscreen();" />
+        <img src="information.png" class="howto" alt="Info" />
+        <img
+          src="full.png"
+          class="full"
+          alt="fuulscreen"
+          onclick="openFullscreen();"
+        />
         <button class="btn btn--new">🔄 New game</button>
         <button class="btn btn--roll">🎲 Roll dice</button>
         <button class="btn btn--hold">📥 Hold</button>
@@ -82,11 +85,9 @@
           score, and it becomes the next player's turn.
         </li>
       </ul>
-
       <p>The first player to score 100 or more points wins.</p>
     </div>
     <div class="overlay hidden"></div>
-
     <script src="script.js"></script>
   </body>
 </html>

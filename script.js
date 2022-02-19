@@ -33,8 +33,10 @@ const selectmulti = document.querySelector(".selectmulti");
 const closemulti = document.querySelector(".closemulti");
 let multiplayerIsOn = true;
 let divele = document.createElement("div");
-let divele2 = document.createElement("div");
 
+//--------------------------- buttons ---------------------------
+//---------------------------------------------------------------
+// ----- Change player in multiplayer mode -----
 function change() {
   if (player0.classList.contains("player--active")) {
     player0.classList.remove("player--active");
@@ -47,6 +49,7 @@ function change() {
   currentScore = playerActive.querySelector(".current-score");
   score = playerActive.querySelector(".score");
 }
+// ----- Change player to player in multiplayer mode -----
 function change2player() {
   player1.classList.remove("player--active");
   player0.classList.add("player--active");
@@ -54,6 +57,7 @@ function change2player() {
   currentScore = playerActive.querySelector(".current-score");
   score = playerActive.querySelector(".score");
 }
+// ----- Change player to bot in multiplayer mode -----
 function change2bot() {
   player0.classList.remove("player--active");
   player1.classList.add("player--active");
@@ -61,27 +65,34 @@ function change2bot() {
   currentScore = playerActive.querySelector(".current-score");
   score = playerActive.querySelector(".score");
   if (multiplayerIsOn === false) {
-    loop1: do {
-      dice.setAttribute("src", diceList[6]);
-      let randNum = Math.floor(Math.random() * 6 + 1);
-      if (randNum === 1) {
-        dice.setAttribute("src", diceList[randNum - 1]);
-        currentScore.textContent = 0;
-        change2player;
-        break loop1;
-      } else {
-        dice.setAttribute("src", diceList[randNum - 1]);
-        currentScore.textContent = Number(currentScore.textContent) + randNum;
-      }
-    } while (Number(currentScore.textContent) < 20);
+    setTimeout(function () {
+      loop1: do {
+        dice.setAttribute("src", diceList[6]);
+        let randNum = Math.floor(Math.random() * 6 + 1);
+        if (randNum === 1) {
+          setTimeout(function () {
+            dice.setAttribute("src", diceList[randNum - 1]);
+          }, 1240);
+          currentScore.textContent = 0;
+          setTimeout(change2player, 2300);
+          break loop1;
+        } else {
+          setTimeout(function () {
+            dice.setAttribute("src", diceList[randNum - 1]);
+          }, 1240);
+          currentScore.textContent = Number(currentScore.textContent) + randNum;
+        }
+      } while (Number(currentScore.textContent) < 15);
+    }, 1000);
 
     setTimeout(hold, 1000);
   }
 }
-
+// ----- play dice -----
 function playDice() {
   dice.classList.remove("hidden");
   dice.setAttribute("src", diceList[6]);
+  let playerActive = document.querySelector(".player--active");
   let randNum = Math.floor(Math.random() * 6 + 1);
   let playername = playerActive.querySelector(".name").value;
   setTimeout(function () {
@@ -102,14 +113,15 @@ function playDice() {
     }
   }, 1240);
 }
+// ----- hold current score -----
 function hold() {
   if (multiplayerIsOn === true) {
     winner = playerActive.querySelector(".name").value;
   } else {
-    if (playerActive.classList.contains(".player--0")) {
-      winner = playerActive.querySelector(".name").value;
-    } else {
+    if (playerActive.classList.contains(".player--1")) {
       winner = "BOT";
+    } else {
+      winner = playerActive.querySelector(".name").value;
     }
   }
   score.textContent =
@@ -132,6 +144,7 @@ function hold() {
     //with ${currentScore.textContent} score
   }
 }
+// ----- fullscreen -----
 function openFullscreen() {
   let src = full.getAttribute("src");
   if (src === "full.png") {
@@ -158,6 +171,7 @@ function openFullscreen() {
     full.setAttribute("src", "full.png");
   }
 }
+// ----- play new game -----
 function newGame() {
   winningpage.classList.add("hidden");
   overlay.classList.add("hidden");
@@ -173,34 +187,36 @@ function newGame() {
   score = playerActive.querySelector(".score");
 }
 
+//--------------------------- buttons ---------------------------
+//---------------------------------------------------------------
+// ----- roll button -----
 btnroll.addEventListener("click", function () {
   if (playerActive.querySelector(".name").value !== "BOT") {
     playDice();
   }
 });
-
+// ----- hold button -----
 btnhold.addEventListener("click", function () {
   if (playerActive.querySelector(".name").value !== "BOT") {
     hold();
   }
 });
-
-btnnew.addEventListener("click", newGame);
-closeModal.addEventListener("click", newGame);
+// ----- information page button -----
 howto.addEventListener("click", function () {
   overlay.classList.remove("hidden");
   howtopage.classList.remove("hidden");
 });
-
+// ----- close information page button -----
 closeinfo.addEventListener("click", function () {
   overlay.classList.add("hidden");
   howtopage.classList.add("hidden");
 });
+// ----- close multiplayer page button -----
 closemulti.addEventListener("click", function () {
   overlay.classList.add("hidden");
   selectmulti.classList.add("hidden");
 });
-
+// ----- Multi player  button -----
 btnmulti.addEventListener("click", function () {
   overlay.classList.add("hidden");
   selectmulti.classList.add("hidden");
@@ -213,7 +229,7 @@ btnmulti.addEventListener("click", function () {
 
   player1.prepend(divele);
 });
-
+// ----- Single player button -----
 btnsingle.addEventListener("click", function () {
   overlay.classList.add("hidden");
   selectmulti.classList.add("hidden");
@@ -226,8 +242,12 @@ btnsingle.addEventListener("click", function () {
   // divele.innerHTML = '<h2 class="name" id="name--1" value="BOT">BOT</h2>';
   player1.prepend(divele);
 });
-
+// ----- player option page button -----
 console.addEventListener("click", function () {
   overlay.classList.remove("hidden");
   selectmulti.classList.remove("hidden");
 });
+// ----- new game button -----
+btnnew.addEventListener("click", newGame);
+// ----- close rotate button -----
+closeModal.addEventListener("click", newGame);

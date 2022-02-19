@@ -294,7 +294,7 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60%;
+  width: 67%;
   background-color: white;
   padding: 2rem 3rem;
   border-radius: 5px;
@@ -337,6 +337,9 @@ main {
 }
 .btn--multi,
 .btn--single {
+  background: none;
+  border: 1px solid #ff9283;
+  border-radius: 10px;
   font-family: inherit;
   padding: 1rem;
   font-size: 1rem;
@@ -473,14 +476,17 @@ main {
   }
   .selectmulti {
     font-size: 1.5rem;
-    width: 60%;
-    padding: 4rem;
+    width: 40rem;
+    padding: 4rem 6rem;
   }
   .btn--multi,
   .btn--single {
     font-family: inherit;
     padding: 1rem;
     font-size: 2rem;
+    background: none;
+    border: 1px solid #ff9283;
+    border-radius: 10px;
   }
   .closemulti {
     position: absolute;
@@ -492,7 +498,7 @@ main {
     border: none;
   }
   .multioptions {
-    flex-direction: row;
+    flex-direction: column-reverse;
     justify-content: center;
   }
 }

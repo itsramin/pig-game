@@ -5,7 +5,9 @@
   padding: 0;
   box-sizing: inherit;
 }
-
+h2 {
+  font-weight: normal;
+}
 html {
   font-size: 100%;
   box-sizing: border-box;
@@ -203,8 +205,8 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%;
-
+  width: 65%;
+  text-align: center;
   background-color: white;
   padding: 2rem;
   border-radius: 5px;
@@ -267,6 +269,14 @@ main {
   width: 1.1rem;
   cursor: pointer;
 }
+.console {
+  position: absolute;
+  left: 85%;
+  top: 1rem;
+  transform: translateX(-50%);
+  width: 1.1rem;
+  cursor: pointer;
+}
 .howtopage {
   position: absolute;
   top: 50%;
@@ -279,7 +289,38 @@ main {
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
+.selectmulti {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  background-color: white;
+  padding: 2rem 3rem;
+  border-radius: 5px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
 .closeinfo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+.howtopage ul {
+  margin: 1rem 2rem;
+}
+
+.multioptions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.closemulti {
   position: absolute;
   top: 1.2rem;
   right: 1.5rem;
@@ -289,8 +330,16 @@ main {
   border: none;
   background: none;
 }
-.howtopage ul {
-  margin: 1rem 2rem;
+.console {
+  width: 1.4rem;
+  left: 83%;
+  top: 0.8rem;
+}
+.btn--multi,
+.btn--single {
+  font-family: inherit;
+  padding: 1rem;
+  font-size: 1rem;
 }
 
 @media screen and (min-width: 900px) {
@@ -349,6 +398,12 @@ main {
 
   .btn--new {
     top: 4rem;
+  }
+  .btn--multi {
+    top: 16rem;
+  }
+  .btn--single {
+    top: 10rem;
   }
   .btn--roll {
     bottom: 16rem;
@@ -410,6 +465,35 @@ main {
     font-size: 1.5rem;
     width: 60%;
     padding: 4rem;
+  }
+  .console {
+    left: 85%;
+    top: 1.1rem;
+    width: 3rem;
+  }
+  .selectmulti {
+    font-size: 1.5rem;
+    width: 60%;
+    padding: 4rem;
+  }
+  .btn--multi,
+  .btn--single {
+    font-family: inherit;
+    padding: 1rem;
+    font-size: 2rem;
+  }
+  .closemulti {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-size: 3.5rem;
+    color: #333;
+    cursor: pointer;
+    border: none;
+  }
+  .multioptions {
+    flex-direction: row;
+    justify-content: center;
   }
 }
 @media screen and (orientation: portrait) {

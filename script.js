@@ -1,12 +1,12 @@
 "use strict";
 const diceList = [
-  "dice-1.png",
-  "dice-2.png",
-  "dice-3.png",
-  "dice-4.png",
-  "dice-5.png",
-  "dice-6.png",
-  "dicegif.gif",
+  "media/dice-1.png",
+  "media/dice-2.png",
+  "media/dice-3.png",
+  "media/dice-4.png",
+  "media/dice-5.png",
+  "media/dice-6.png",
+  "media/dicegif.gif",
 ];
 const dice = document.querySelector(".dice");
 const btnroll = document.querySelector(".btn--roll");
@@ -20,7 +20,7 @@ const player0 = document.querySelector(".player--0");
 const player1 = document.querySelector(".player--1");
 const winningpage = document.querySelector(".winningpage");
 const overlay = document.querySelector(".overlay");
-const closeModal = document.querySelector(".close-modal");
+const carryon = document.querySelector(".carryon");
 const closeinfo = document.querySelector(".closeinfo");
 const howto = document.querySelector(".howto");
 const howtopage = document.querySelector(".howtopage");
@@ -31,7 +31,8 @@ const btnsingle = document.querySelector(".btn--single");
 const console = document.querySelector(".console");
 const selectmulti = document.querySelector(".selectmulti");
 const closemulti = document.querySelector(".closemulti");
-let multiplayerIsOn = true;
+const playersscores = document.querySelector(".playersscores");
+let multiplayerIsOn = false;
 let divele = document.createElement("div");
 
 //--------------------------- buttons ---------------------------
@@ -64,29 +65,46 @@ function change2bot() {
   playerActive = document.querySelector(".player--active");
   currentScore = playerActive.querySelector(".current-score");
   score = playerActive.querySelector(".score");
-  if (multiplayerIsOn === false) {
-    setTimeout(function () {
-      loop1: do {
+  setTimeout(function () {
+    dice.setAttribute("src", diceList[6]);
+    let randNum = Math.floor(Math.random() * 6 + 1);
+    if (randNum === 1) {
+      setTimeout(function () {
+        dice.setAttribute("src", diceList[randNum - 1]);
+        currentScore.textContent = 0;
+      }, 1240);
+      setTimeout(change2player, 2000);
+    } else {
+      setTimeout(function () {
+        dice.setAttribute("src", diceList[randNum - 1]);
+        currentScore.textContent = Number(currentScore.textContent) + randNum;
+      }, 1240);
+      setTimeout(function () {
         dice.setAttribute("src", diceList[6]);
         let randNum = Math.floor(Math.random() * 6 + 1);
         if (randNum === 1) {
           setTimeout(function () {
             dice.setAttribute("src", diceList[randNum - 1]);
+            currentScore.textContent = 0;
           }, 1240);
-          currentScore.textContent = 0;
-          setTimeout(change2player, 2300);
-          break loop1;
+          setTimeout(change2player, 1240 + 700);
         } else {
           setTimeout(function () {
             dice.setAttribute("src", diceList[randNum - 1]);
+            currentScore.textContent =
+              Number(currentScore.textContent) + randNum;
           }, 1240);
-          currentScore.textContent = Number(currentScore.textContent) + randNum;
         }
-      } while (Number(currentScore.textContent) < 15);
-    }, 1000);
+      }, 1240 + 1000);
 
-    setTimeout(hold, 1000);
-  }
+      setTimeout(hold, 1240 + 1240 + 2500);
+    }
+  }, 1000);
+
+  // setTimeout(playDice, 1000);
+  // if (playDice !== 1) {
+  //   setTimeout(playDice, 3000);
+  // }
 }
 // ----- play dice -----
 function playDice() {
@@ -94,31 +112,33 @@ function playDice() {
   dice.setAttribute("src", diceList[6]);
   let playerActive = document.querySelector(".player--active");
   let randNum = Math.floor(Math.random() * 6 + 1);
-  let playername = playerActive.querySelector(".name").value;
+  // let playername = playerActive.querySelector(".name").value;
   setTimeout(function () {
     dice.setAttribute("src", diceList[randNum - 1]);
     if (randNum === 1) {
       currentScore.textContent = 0;
       if (multiplayerIsOn === true) {
-        change();
+        change;
       } else {
-        if (playername === "BOT") {
-          change2player();
+        if (playerActive.classList.contains(".bot")) {
+          console.log("change to player");
+          setTimeout(change2player, 100);
         } else {
-          change2bot();
+          setTimeout(change2bot, 100);
         }
       }
     } else {
       currentScore.textContent = Number(currentScore.textContent) + randNum;
     }
   }, 1240);
+  return randNum;
 }
 // ----- hold current score -----
 function hold() {
   if (multiplayerIsOn === true) {
     winner = playerActive.querySelector(".name").value;
   } else {
-    if (playerActive.classList.contains(".player--1")) {
+    if (playerActive.classList.contains("bot")) {
       winner = "BOT";
     } else {
       winner = playerActive.querySelector(".name").value;
@@ -126,7 +146,7 @@ function hold() {
   }
   score.textContent =
     Number(score.textContent) + Number(currentScore.textContent);
-  if (Number(score.textContent) < 100) {
+  if (Number(score.textContent) < 10) {
     currentScore.textContent = 0;
     if (multiplayerIsOn === true) {
       change();
@@ -141,13 +161,16 @@ function hold() {
     winningpage.classList.remove("hidden");
     overlay.classList.remove("hidden");
     document.querySelector(".winnerName").textContent = `${winner}`;
+    playersscores.textContent = `${
+      player0.querySelector(".score").textContent
+    } vs ${player1.querySelector(".score").textContent}`;
     //with ${currentScore.textContent} score
   }
 }
 // ----- fullscreen -----
 function openFullscreen() {
   let src = full.getAttribute("src");
-  if (src === "full.png") {
+  if (src === "media/full.png") {
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.webkitRequestFullscreen) {
@@ -157,7 +180,7 @@ function openFullscreen() {
       /* IE11 */
       elem.msRequestFullscreen();
     }
-    full.setAttribute("src", "unfull.png");
+    full.setAttribute("src", "media/unfull.png");
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen();
@@ -168,7 +191,7 @@ function openFullscreen() {
       /* IE11 */
       document.msExitFullscreen();
     }
-    full.setAttribute("src", "full.png");
+    full.setAttribute("src", "media/full.png");
   }
 }
 // ----- play new game -----
@@ -228,6 +251,7 @@ btnmulti.addEventListener("click", function () {
     '<input onClick="this.setSelectionRange(0, this.value.length)" class="name" type="text" id="name--1" value="PLAYER 2"/>';
 
   player1.prepend(divele);
+  player1.classList.remove("bot");
 });
 // ----- Single player button -----
 btnsingle.addEventListener("click", function () {
@@ -237,10 +261,11 @@ btnsingle.addEventListener("click", function () {
   multiplayerIsOn = false;
   player1.removeChild(player1.firstElementChild);
 
-  divele.innerHTML =
-    '<input onClick="this.setSelectionRange(0, this.value.length)" class="name" type="text" id="name--1" value="BOT"/>';
-  // divele.innerHTML = '<h2 class="name" id="name--1" value="BOT">BOT</h2>';
+  // divele.innerHTML =
+  //   '<input onClick="this.setSelectionRange(0, this.value.length)" class="name" type="text" id="name--1" value="BOT"/>';
+  divele.innerHTML = '<h2 class="name" id="name--1" value="BOT">BOT</h2>';
   player1.prepend(divele);
+  player1.classList.add("bot");
 });
 // ----- player option page button -----
 console.addEventListener("click", function () {
@@ -250,4 +275,4 @@ console.addEventListener("click", function () {
 // ----- new game button -----
 btnnew.addEventListener("click", newGame);
 // ----- close rotate button -----
-closeModal.addEventListener("click", newGame);
+carryon.addEventListener("click", newGame);

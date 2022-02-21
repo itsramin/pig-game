@@ -213,10 +213,7 @@ main {
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
   z-index: 10;
 }
-.winningpage p {
-  font-family: inherit;
-  font-size: 1.2rem;
-}
+
 .winnerName {
   font-family: inherit;
   font-weight: 700;
@@ -345,15 +342,21 @@ main {
   font-size: 1rem;
 }
 .carryon {
-  padding: 1rem 3rem;
+  padding: 1rem 2rem;
   font-family: inherit;
-  font-size: 2rem;
+  font-size: 1rem;
   border-radius: 10px;
   border: none;
+  margin-top: 1rem;
+  color: #fff;
+  background-color: #bf2e34;
 }
 .playersscores {
-  font-size: 1.5rem;
+  font-size: 0.7rem;
   font-family: inherit;
+}
+.winneris {
+  font-size: 1rem;
 }
 
 @media screen and (min-width: 900px) {
@@ -454,9 +457,7 @@ main {
   .winningpage {
     width: 50rem;
   }
-  .winningpage p {
-    font-size: 2rem;
-  }
+
   .close-modal {
     font-size: 4rem;
   }
@@ -511,6 +512,17 @@ main {
   .multioptions {
     flex-direction: column-reverse;
     justify-content: center;
+  }
+  .carryon {
+    padding: 1rem 3rem;
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+  .playersscores {
+    font-size: 1.3rem;
+  }
+  .winneris {
+    font-size: 1.8rem;
   }
 }
 @media screen and (orientation: portrait) {

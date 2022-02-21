@@ -118,17 +118,19 @@ function playDice() {
     if (randNum === 1) {
       currentScore.textContent = 0;
       if (multiplayerIsOn === true) {
-        change;
+        setTimeout(change, 300);
       } else {
         if (playerActive.classList.contains(".bot")) {
           console.log("change to player");
-          setTimeout(change2player, 100);
+          setTimeout(change2player, 300);
         } else {
-          setTimeout(change2bot, 100);
+          setTimeout(change2bot, 300);
         }
       }
     } else {
-      currentScore.textContent = Number(currentScore.textContent) + randNum;
+      setTimeout(function () {
+        currentScore.textContent = Number(currentScore.textContent) + randNum;
+      }, 300);
     }
   }, 1240);
   return randNum;
@@ -161,9 +163,9 @@ function hold() {
     winningpage.classList.remove("hidden");
     overlay.classList.remove("hidden");
     document.querySelector(".winnerName").textContent = `${winner}`;
-    playersscores.textContent = `${
+    playersscores.textContent = ` (${
       player0.querySelector(".score").textContent
-    } vs ${player1.querySelector(".score").textContent}`;
+    } vs ${player1.querySelector(".score").textContent}):`;
     //with ${currentScore.textContent} score
   }
 }

@@ -40,97 +40,104 @@ let funcIsRunning = false;
 //---------------------------------------------------------------
 // ----- Change player in multiplayer mode -----
 function change() {
-  if (player0.classList.contains("player--active")) {
-    player0.classList.remove("player--active");
-    player1.classList.add("player--active");
-  } else {
-    player1.classList.remove("player--active");
-    player0.classList.add("player--active");
+  if (!dice.classList.contains(".hidden")) {
+    if (player0.classList.contains("player--active")) {
+      player0.classList.remove("player--active");
+      player1.classList.add("player--active");
+    } else {
+      player1.classList.remove("player--active");
+      player0.classList.add("player--active");
+    }
+    playerActive = document.querySelector(".player--active");
+    currentScore = playerActive.querySelector(".current-score");
+    score = playerActive.querySelector(".score");
   }
-  playerActive = document.querySelector(".player--active");
-  currentScore = playerActive.querySelector(".current-score");
-  score = playerActive.querySelector(".score");
 }
 // ----- Change player to player in multiplayer mode -----
 function change2player() {
-  player1.classList.remove("player--active");
-  player0.classList.add("player--active");
-  playerActive = document.querySelector(".player--active");
-  currentScore = playerActive.querySelector(".current-score");
-  score = playerActive.querySelector(".score");
+  if (!dice.classList.contains(".hidden")) {
+    player1.classList.remove("player--active");
+    player0.classList.add("player--active");
+    playerActive = document.querySelector(".player--active");
+    currentScore = playerActive.querySelector(".current-score");
+    score = playerActive.querySelector(".score");
+  }
 }
 // ----- Change player to bot in multiplayer mode -----
 function change2bot() {
-  player0.classList.remove("player--active");
-  player1.classList.add("player--active");
-  playerActive = document.querySelector(".player--active");
-  currentScore = playerActive.querySelector(".current-score");
-  score = playerActive.querySelector(".score");
-  setTimeout(function () {
-    dice.setAttribute("src", diceList[6]);
-    let randNum = Math.floor(Math.random() * 6 + 1);
-    if (randNum === 1) {
-      setTimeout(function () {
-        dice.setAttribute("src", diceList[randNum - 1]);
-        currentScore.textContent = 0;
-      }, 1000);
-      setTimeout(change2player, 2000);
-    } else {
-      setTimeout(function () {
-        dice.setAttribute("src", diceList[randNum - 1]);
-        currentScore.textContent = Number(currentScore.textContent) + randNum;
-      }, 1000);
-      setTimeout(function () {
-        dice.setAttribute("src", diceList[6]);
-        let randNum = Math.floor(Math.random() * 6 + 1);
-        if (randNum === 1) {
-          setTimeout(function () {
-            dice.setAttribute("src", diceList[randNum - 1]);
-            currentScore.textContent = 0;
-          }, 1000);
-          setTimeout(change2player, 2000);
-        } else {
-          setTimeout(function () {
-            dice.setAttribute("src", diceList[randNum - 1]);
-            currentScore.textContent =
-              Number(currentScore.textContent) + randNum;
-          }, 1000);
-          setTimeout(hold, 1000 + 1000);
-        }
-      }, 1000 + 1100);
-    }
-  }, 1000);
+  if (!dice.classList.contains(".hidden")) {
+    player0.classList.remove("player--active");
+    player1.classList.add("player--active");
+    playerActive = document.querySelector(".player--active");
+    currentScore = playerActive.querySelector(".current-score");
+    score = playerActive.querySelector(".score");
+    setTimeout(function () {
+      dice.setAttribute("src", diceList[6]);
+      let randNum = Math.floor(Math.random() * 6 + 1);
+      if (randNum === 1) {
+        setTimeout(function () {
+          dice.setAttribute("src", diceList[randNum - 1]);
+          currentScore.textContent = 0;
+        }, 1000);
+        setTimeout(change2player, 2000);
+      } else {
+        setTimeout(function () {
+          dice.setAttribute("src", diceList[randNum - 1]);
+          currentScore.textContent = Number(currentScore.textContent) + randNum;
+        }, 1000);
+        setTimeout(function () {
+          dice.setAttribute("src", diceList[6]);
+          let randNum = Math.floor(Math.random() * 6 + 1);
+          if (randNum === 1) {
+            setTimeout(function () {
+              dice.setAttribute("src", diceList[randNum - 1]);
+              currentScore.textContent = 0;
+            }, 1000);
+            setTimeout(change2player, 2000);
+          } else {
+            setTimeout(function () {
+              dice.setAttribute("src", diceList[randNum - 1]);
+              currentScore.textContent =
+                Number(currentScore.textContent) + randNum;
+            }, 1000);
+            setTimeout(hold, 1000 + 1000);
+          }
+        }, 1000 + 1100);
+      }
+    }, 1000);
+  }
 }
 // ----- play dice -----
 function playDice() {
-  funcIsRunning = true;
-  dice.classList.remove("hidden");
-  dice.setAttribute("src", diceList[6]);
-  let playerActive = document.querySelector(".player--active");
-  let randNum = Math.floor(Math.random() * 6 + 1);
-  setTimeout(function () {
-    dice.setAttribute("src", diceList[randNum - 1]);
-    if (randNum === 1) {
-      currentScore.textContent = 0;
-      if (multiplayerIsOn === true) {
-        setTimeout(change, 300);
-      } else {
-        if (playerActive.classList.contains(".bot")) {
-          setTimeout(change2player, 300);
+  if (!dice.classList.contains(".hidden")) {
+    funcIsRunning = true;
+    dice.setAttribute("src", diceList[6]);
+    let playerActive = document.querySelector(".player--active");
+    let randNum = Math.floor(Math.random() * 6 + 1);
+    setTimeout(function () {
+      dice.setAttribute("src", diceList[randNum - 1]);
+      if (randNum === 1) {
+        currentScore.textContent = 0;
+        if (multiplayerIsOn === true) {
+          setTimeout(change, 300);
         } else {
-          setTimeout(change2bot, 300);
+          if (playerActive.classList.contains(".bot")) {
+            setTimeout(change2player, 300);
+          } else {
+            setTimeout(change2bot, 300);
+          }
         }
+      } else {
+        setTimeout(function () {
+          currentScore.textContent = Number(currentScore.textContent) + randNum;
+        }, 300);
       }
-    } else {
-      setTimeout(function () {
-        currentScore.textContent = Number(currentScore.textContent) + randNum;
-      }, 300);
-    }
-  }, 1000);
-  setTimeout(function () {
-    funcIsRunning = false;
-  }, 1300);
-  return randNum;
+    }, 1000);
+    setTimeout(function () {
+      funcIsRunning = false;
+    }, 1300);
+    return randNum;
+  }
 }
 // ----- hold current score -----
 function hold() {
@@ -221,6 +228,7 @@ btnroll.addEventListener("click", function () {
     playerActive.querySelector(".name").value !== "BOT" &&
     funcIsRunning === false
   ) {
+    dice.classList.remove("hidden");
     playDice();
   }
 });

@@ -6,7 +6,7 @@ const diceList = [
   "media/dice-4.png",
   "media/dice-5.png",
   "media/dice-6.png",
-  "media/dicegif.gif",
+  "media/dicegif2.gif",
 ];
 const dice = document.querySelector(".dice");
 const btnroll = document.querySelector(".btn--roll");
@@ -34,6 +34,7 @@ const closemulti = document.querySelector(".closemulti");
 const playersscores = document.querySelector(".playersscores");
 let multiplayerIsOn = false;
 let divele = document.createElement("div");
+let funcIsRunning = false;
 
 //--------------------------- buttons ---------------------------
 //---------------------------------------------------------------
@@ -72,13 +73,13 @@ function change2bot() {
       setTimeout(function () {
         dice.setAttribute("src", diceList[randNum - 1]);
         currentScore.textContent = 0;
-      }, 1240);
+      }, 1000);
       setTimeout(change2player, 2000);
     } else {
       setTimeout(function () {
         dice.setAttribute("src", diceList[randNum - 1]);
         currentScore.textContent = Number(currentScore.textContent) + randNum;
-      }, 1240);
+      }, 1000);
       setTimeout(function () {
         dice.setAttribute("src", diceList[6]);
         let randNum = Math.floor(Math.random() * 6 + 1);
@@ -86,33 +87,27 @@ function change2bot() {
           setTimeout(function () {
             dice.setAttribute("src", diceList[randNum - 1]);
             currentScore.textContent = 0;
-          }, 1240);
-          setTimeout(change2player, 1240 + 700);
+          }, 1000);
+          setTimeout(change2player, 2000);
         } else {
           setTimeout(function () {
             dice.setAttribute("src", diceList[randNum - 1]);
             currentScore.textContent =
               Number(currentScore.textContent) + randNum;
-          }, 1240);
+          }, 1000);
+          setTimeout(hold, 1000 + 1000);
         }
-      }, 1240 + 1000);
-
-      setTimeout(hold, 1240 + 1240 + 2500);
+      }, 1000 + 1000);
     }
   }, 1000);
-
-  // setTimeout(playDice, 1000);
-  // if (playDice !== 1) {
-  //   setTimeout(playDice, 3000);
-  // }
 }
 // ----- play dice -----
 function playDice() {
+  funcIsRunning = true;
   dice.classList.remove("hidden");
   dice.setAttribute("src", diceList[6]);
   let playerActive = document.querySelector(".player--active");
   let randNum = Math.floor(Math.random() * 6 + 1);
-  // let playername = playerActive.querySelector(".name").value;
   setTimeout(function () {
     dice.setAttribute("src", diceList[randNum - 1]);
     if (randNum === 1) {
@@ -132,11 +127,15 @@ function playDice() {
         currentScore.textContent = Number(currentScore.textContent) + randNum;
       }, 300);
     }
-  }, 1240);
+  }, 1000);
+  setTimeout(function () {
+    funcIsRunning = false;
+  }, 1500);
   return randNum;
 }
 // ----- hold current score -----
 function hold() {
+  funcIsRunning = true;
   if (multiplayerIsOn === true) {
     winner = playerActive.querySelector(".name").value;
   } else {
@@ -154,9 +153,9 @@ function hold() {
       change();
     } else {
       if (winner === "BOT") {
-        change2player();
+        change2player;
       } else {
-        change2bot();
+        change2bot;
       }
     }
   } else {
@@ -168,11 +167,14 @@ function hold() {
     } vs ${player1.querySelector(".score").textContent}):`;
     //with ${currentScore.textContent} score
   }
+  setTimeout(function () {
+    funcIsRunning = false;
+  }, 100);
 }
 // ----- fullscreen -----
 function openFullscreen() {
   let src = full.getAttribute("src");
-  if (src === "media/full.png") {
+  if (src === "media/full.svg") {
     if (elem.requestFullscreen) {
       elem.requestFullscreen();
     } else if (elem.webkitRequestFullscreen) {
@@ -182,7 +184,7 @@ function openFullscreen() {
       /* IE11 */
       elem.msRequestFullscreen();
     }
-    full.setAttribute("src", "media/unfull.png");
+    full.setAttribute("src", "media/unfull.svg");
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen();
@@ -193,7 +195,7 @@ function openFullscreen() {
       /* IE11 */
       document.msExitFullscreen();
     }
-    full.setAttribute("src", "media/full.png");
+    full.setAttribute("src", "media/full.svg");
   }
 }
 // ----- play new game -----
@@ -216,13 +218,21 @@ function newGame() {
 //---------------------------------------------------------------
 // ----- roll button -----
 btnroll.addEventListener("click", function () {
-  if (playerActive.querySelector(".name").value !== "BOT") {
+  if (
+    playerActive.querySelector(".name").value !== "BOT" &&
+    funcIsRunning === false
+  ) {
     playDice();
   }
 });
 // ----- hold button -----
 btnhold.addEventListener("click", function () {
-  if (playerActive.querySelector(".name").value !== "BOT") {
+  if (
+    playerActive.querySelector(".name").value !== "BOT" &&
+    funcIsRunning === false &&
+    !dice.classList.contains("hidden") &&
+    Number(currentScore.textContent) !== 0
+  ) {
     hold();
   }
 });

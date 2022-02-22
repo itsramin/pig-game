@@ -12,14 +12,6 @@
     <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="orient">
-      <p>Please turn phone to landscape mode.</p>
-      <img
-        class="rotatephone"
-        src="media/rotatedevice.gif"
-        alt="rotate phone"
-      />
-    </div>
     <main>
       <div class="playersbox">
         <section class="player player--0 player--active">
@@ -47,55 +39,65 @@
       </div>
       <img src="media/dice-5.png" alt="Playing dice" class="dice hidden" />
       <div class="buttons">
-        <img src="media/information.png" class="howto" alt="Info" />
+        <img src="media/info.svg" class="howto" alt="Info" />
         <img
-          src="media/full.png"
+          src="media/full.svg"
           class="full"
           alt="fullscreen"
           onclick="openFullscreen();"
         />
-        <img src="media/console.png" class="console" alt="console" />
+        <img src="media/console.svg" class="console" alt="console" />
         <button class="btn btn--new">🔄 New game</button>
         <button class="btn btn--roll">🎲 Roll dice</button>
         <button class="btn btn--hold">📥 Hold</button>
       </div>
     </main>
-    <div class="winningpage hidden">
-      <span class="winneris">🏆 The winner is</span
-      ><span class="playersscores"></span>
-      <div class="winnerName"></div>
-
-      <button class="carryon">Carry on</button>
-    </div>
-    <div class="howtopage hidden">
-      <button class="closeinfo">&times;</button>
-      <p>
-        Each turn, a player repeatedly rolls a dice until either a 1 is rolled
-        or the player decides to "hold":
-      </p>
-      <ul>
-        <li>
-          If the player rolls a 1, they score nothing and it becomes the next
-          player's turn.
-        </li>
-        <li>
-          If the player rolls any other number, it is added to their turn total
-          and the player's turn continues.
-        </li>
-        <li>
-          If a player chooses to "hold", their turn total is added to their
-          score, and it becomes the next player's turn.
-        </li>
-      </ul>
-      <p>The first player to score 100 or more points wins.</p>
-    </div>
-    <div class="selectmulti hidden">
-      <button class="closemulti">&times;</button>
-      <div class="multioptions">
-        <button class="btn--multi">👤:👤 Two Player</button>
-        <button class="btn--single">👤:💻 Single Player</button>
+    <div>
+      <div class="orient">
+        <p>Please turn phone to landscape mode.</p>
+        <img
+          class="rotatephone"
+          src="media/rotatedevice.gif"
+          alt="rotate phone"
+        />
       </div>
+      <div class="winningpage hidden">
+        <span class="winneris">🏆 The winner is</span
+        ><span class="playersscores"></span>
+        <div class="winnerName"></div>
+
+        <button class="carryon">Carry on</button>
+      </div>
+      <div class="howtopage hidden">
+        <button class="closeinfo">&times;</button>
+        <p>
+          Each turn, a player repeatedly rolls a dice until either a 1 is rolled
+          or the player decides to "hold":
+        </p>
+        <ul>
+          <li>
+            If the player rolls a 1, they score nothing and it becomes the next
+            player's turn.
+          </li>
+          <li>
+            If the player rolls any other number, it is added to their turn
+            total and the player's turn continues.
+          </li>
+          <li>
+            If a player chooses to "hold", their turn total is added to their
+            score, and it becomes the next player's turn.
+          </li>
+        </ul>
+        <p>The first player to score 100 or more points wins.</p>
+      </div>
+      <div class="selectmulti hidden">
+        <button class="closemulti">&times;</button>
+        <div class="multioptions">
+          <button class="btn--multi">🧒🏻:🧒🏻 Two Player</button>
+          <button class="btn--single">🧒🏻:🤖 Single Player</button>
+        </div>
+      </div>
+      <div class="overlay hidden"></div>
     </div>
-    <div class="overlay hidden"></div>
   </body>
 </html>

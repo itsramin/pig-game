@@ -153,7 +153,7 @@ function hold() {
   }
   score.textContent =
     Number(score.textContent) + Number(currentScore.textContent);
-  if (Number(score.textContent) < 100) {
+  if (Number(score.textContent) < 1) {
     currentScore.textContent = 0;
     if (multiplayerIsOn === true) {
       setTimeout(change, 10);
@@ -170,7 +170,7 @@ function hold() {
     document.querySelector(".winnerName").textContent = `${winner}`;
     playersscores.textContent = ` (${
       player0.querySelector(".score").textContent
-    } vs ${player1.querySelector(".score").textContent}):`;
+    } vs ${player1.querySelector(".score").textContent})`;
     //with ${currentScore.textContent} score
   }
   setTimeout(function () {

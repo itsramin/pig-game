@@ -15,7 +15,7 @@ const btnhold = document.querySelector(".btn--hold");
 let playerActive = document.querySelector(".player--active");
 let currentScore = playerActive.querySelector(".current-score");
 let score = playerActive.querySelector(".score");
-let winner = playerActive.querySelector(".name");
+let winner = playerActive.querySelector(".name").value;
 const player0 = document.querySelector(".player--0");
 const player1 = document.querySelector(".player--1");
 const winningpage = document.querySelector(".winningpage");
@@ -28,7 +28,7 @@ const full = document.querySelector(".full");
 const elem = document.documentElement;
 const btnmulti = document.querySelector(".btn--multi");
 const btnsingle = document.querySelector(".btn--single");
-const console = document.querySelector(".console");
+const consolep = document.querySelector(".console");
 const selectmulti = document.querySelector(".selectmulti");
 const closemulti = document.querySelector(".closemulti");
 const playersscores = document.querySelector(".playersscores");
@@ -97,7 +97,7 @@ function change2bot() {
           }, 1000);
           setTimeout(hold, 1000 + 1000);
         }
-      }, 1000 + 1000);
+      }, 1000 + 1100);
     }
   }, 1000);
 }
@@ -116,7 +116,6 @@ function playDice() {
         setTimeout(change, 300);
       } else {
         if (playerActive.classList.contains(".bot")) {
-          console.log("change to player");
           setTimeout(change2player, 300);
         } else {
           setTimeout(change2bot, 300);
@@ -130,7 +129,7 @@ function playDice() {
   }, 1000);
   setTimeout(function () {
     funcIsRunning = false;
-  }, 1500);
+  }, 1300);
   return randNum;
 }
 // ----- hold current score -----
@@ -150,12 +149,12 @@ function hold() {
   if (Number(score.textContent) < 100) {
     currentScore.textContent = 0;
     if (multiplayerIsOn === true) {
-      change();
+      setTimeout(change, 10);
     } else {
       if (winner === "BOT") {
-        change2player;
+        setTimeout(change2player, 10);
       } else {
-        change2bot;
+        setTimeout(change2bot, 10);
       }
     }
   } else {
@@ -233,7 +232,7 @@ btnhold.addEventListener("click", function () {
     !dice.classList.contains("hidden") &&
     Number(currentScore.textContent) !== 0
   ) {
-    hold();
+    setTimeout(hold, 10);
   }
 });
 // ----- information page button -----
@@ -280,7 +279,7 @@ btnsingle.addEventListener("click", function () {
   player1.classList.add("bot");
 });
 // ----- player option page button -----
-console.addEventListener("click", function () {
+consolep.addEventListener("click", function () {
   overlay.classList.remove("hidden");
   selectmulti.classList.remove("hidden");
 });

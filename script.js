@@ -153,7 +153,7 @@ function hold() {
   }
   score.textContent =
     Number(score.textContent) + Number(currentScore.textContent);
-  if (Number(score.textContent) < 1) {
+  if (Number(score.textContent) < 100) {
     currentScore.textContent = 0;
     if (multiplayerIsOn === true) {
       setTimeout(change, 10);

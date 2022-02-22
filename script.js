@@ -6,7 +6,7 @@ const diceList = [
   "media/dice-4.png",
   "media/dice-5.png",
   "media/dice-6.png",
-  "media/dicegif2.gif",
+  "media/dicegif3.gif",
 ];
 const dice = document.querySelector(".dice");
 const btnroll = document.querySelector(".btn--roll");

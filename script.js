@@ -15,7 +15,7 @@ const btnhold = document.querySelector(".btn--hold");
 let playerActive = document.querySelector(".player--active");
 let currentScore = playerActive.querySelector(".current-score");
 let score = playerActive.querySelector(".score");
-let winner = playerActive.querySelector(".name").value;
+
 const player0 = document.querySelector(".player--0");
 const player1 = document.querySelector(".player--1");
 const winningpage = document.querySelector(".winningpage");
@@ -33,150 +33,101 @@ const selectmulti = document.querySelector(".selectmulti");
 const closemulti = document.querySelector(".closemulti");
 const playersscores = document.querySelector(".playersscores");
 let multiplayerIsOn = false;
-let divele = document.createElement("div");
 let funcIsRunning = false;
 
-//--------------------------- buttons ---------------------------
+//--------------------------- functions ---------------------------
 //---------------------------------------------------------------
-// ----- Change player in multiplayer mode -----
-function change() {
-  if (!dice.classList.contains(".hidden")) {
-    if (player0.classList.contains("player--active")) {
-      player0.classList.remove("player--active");
-      player1.classList.add("player--active");
-    } else {
-      player1.classList.remove("player--active");
-      player0.classList.add("player--active");
-    }
-    playerActive = document.querySelector(".player--active");
-    currentScore = playerActive.querySelector(".current-score");
-    score = playerActive.querySelector(".score");
-  }
-}
-// ----- Change player to player in multiplayer mode -----
-function change2player() {
-  if (!dice.classList.contains(".hidden")) {
-    player1.classList.remove("player--active");
-    player0.classList.add("player--active");
-    playerActive = document.querySelector(".player--active");
-    currentScore = playerActive.querySelector(".current-score");
-    score = playerActive.querySelector(".score");
-  }
-}
-// ----- Change player to bot in multiplayer mode -----
-function change2bot() {
-  if (!dice.classList.contains(".hidden")) {
-    player0.classList.remove("player--active");
-    player1.classList.add("player--active");
-    playerActive = document.querySelector(".player--active");
-    currentScore = playerActive.querySelector(".current-score");
-    score = playerActive.querySelector(".score");
-    setTimeout(function () {
-      dice.setAttribute("src", diceList[6]);
-      let randNum = Math.floor(Math.random() * 6 + 1);
-      if (randNum === 1) {
-        setTimeout(function () {
-          dice.setAttribute("src", diceList[randNum - 1]);
-          currentScore.textContent = 0;
-        }, 1000);
-        setTimeout(change2player, 2000);
-      } else {
-        setTimeout(function () {
-          dice.setAttribute("src", diceList[randNum - 1]);
-          currentScore.textContent = Number(currentScore.textContent) + randNum;
-        }, 1000);
-        setTimeout(function () {
-          dice.setAttribute("src", diceList[6]);
-          let randNum = Math.floor(Math.random() * 6 + 1);
-          if (randNum === 1) {
-            setTimeout(function () {
-              dice.setAttribute("src", diceList[randNum - 1]);
-              currentScore.textContent = 0;
-            }, 1000);
-            setTimeout(change2player, 2000);
-          } else {
-            setTimeout(function () {
-              dice.setAttribute("src", diceList[randNum - 1]);
-              currentScore.textContent =
-                Number(currentScore.textContent) + randNum;
-            }, 1000);
-            setTimeout(hold, 1000 + 1000);
-          }
-        }, 1000 + 1100);
-      }
-    }, 1000);
-  }
-}
-// ----- play dice -----
-function playDice() {
-  if (!dice.classList.contains(".hidden")) {
-    funcIsRunning = true;
-    dice.setAttribute("src", diceList[6]);
-    let playerActive = document.querySelector(".player--active");
-    let randNum = Math.floor(Math.random() * 6 + 1);
-    setTimeout(function () {
-      dice.setAttribute("src", diceList[randNum - 1]);
-      if (randNum === 1) {
-        currentScore.textContent = 0;
-        if (multiplayerIsOn === true) {
-          setTimeout(change, 300);
-        } else {
-          if (playerActive.classList.contains(".bot")) {
-            setTimeout(change2player, 300);
-          } else {
-            setTimeout(change2bot, 300);
-          }
-        }
-      } else {
-        setTimeout(function () {
-          currentScore.textContent = Number(currentScore.textContent) + randNum;
-        }, 300);
-      }
-    }, 1000);
-    setTimeout(function () {
-      funcIsRunning = false;
-    }, 1300);
-    return randNum;
-  }
-}
-// ----- hold current score -----
-function hold() {
+
+const playDice = async function () {
   funcIsRunning = true;
-  if (multiplayerIsOn === true) {
-    winner = playerActive.querySelector(".name").value;
-  } else {
-    if (playerActive.classList.contains("bot")) {
-      winner = "BOT";
-    } else {
-      winner = playerActive.querySelector(".name").value;
-    }
-  }
-  score.textContent =
-    Number(score.textContent) + Number(currentScore.textContent);
-  if (Number(score.textContent) < 100) {
+  dice.src = diceList[6];
+  let randNum = Math.floor(Math.random() * 6 + 1);
+  await wait(1.25);
+  dice.src = diceList[randNum - 1];
+  funcIsRunning = false;
+  if (randNum === 1) {
+    await wait(0.4);
     currentScore.textContent = 0;
-    if (multiplayerIsOn === true) {
-      setTimeout(change, 10);
-    } else {
-      if (winner === "BOT") {
-        setTimeout(change2player, 10);
-      } else {
-        setTimeout(change2bot, 10);
-      }
-    }
-  } else {
-    winningpage.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-    document.querySelector(".winnerName").textContent = `${winner}`;
-    playersscores.textContent = ` (${
-      player0.querySelector(".score").textContent
-    } vs ${player1.querySelector(".score").textContent})`;
-    //with ${currentScore.textContent} score
+    return changePlayer();
   }
-  setTimeout(function () {
-    funcIsRunning = false;
-  }, 100);
-}
+  currentScore.textContent = +currentScore.textContent + randNum;
+
+  return +currentScore.textContent;
+};
+
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000);
+  });
+};
+
+const changePlayer = function () {
+  player0.classList.toggle("player--active");
+  player1.classList.toggle("player--active");
+  playerActive = document.querySelector(".player--active");
+  currentScore = playerActive.querySelector(".current-score");
+  score = playerActive.querySelector(".score");
+
+  if (!multiplayerIsOn && player1.classList.contains("player--active"))
+    playBot();
+};
+
+const hold = function () {
+  score.textContent = +score.textContent + +currentScore.textContent;
+  currentScore.textContent = 0;
+  if (+score.textContent >= 5) return won();
+  changePlayer();
+};
+
+const playBot = async function () {
+  await wait(0.9);
+  const score = await playDice();
+  await wait(0.9);
+  if (player0.classList.contains("player--active")) return;
+  if (score > 5) {
+    hold();
+  } else {
+    playBot();
+  }
+};
+
+const won = function () {
+  let winner;
+  if (player0.classList.contains("player--active")) {
+    winner = player0.querySelector(".name").value;
+  } else if (multiplayerIsOn) {
+    winner = document.querySelector(".player--2-name").value;
+  } else {
+    winner = "BOT";
+  }
+
+  winningpage.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+  document.querySelector(".winnerName").textContent = `${winner}`;
+  playersscores.textContent = ` (${
+    player0.querySelector(".score").textContent
+  } vs ${player1.querySelector(".score").textContent})`;
+};
+
+// ----- play new game -----
+const newGame = function () {
+  winningpage.classList.add("hidden");
+  overlay.classList.add("hidden");
+
+  document.querySelectorAll(".score").forEach((item) => (item.textContent = 0));
+
+  document
+    .querySelectorAll(".current-score")
+    .forEach((item) => (item.textContent = 0));
+  dice.classList.add("hidden");
+
+  player1.classList.remove("player--active");
+  player0.classList.add("player--active");
+  playerActive = document.querySelector(".player--active");
+  currentScore = playerActive.querySelector(".current-score");
+  score = playerActive.querySelector(".score");
+};
+
 // ----- fullscreen -----
 function openFullscreen() {
   let src = full.getAttribute("src");
@@ -204,73 +155,43 @@ function openFullscreen() {
     full.setAttribute("src", "media/full.svg");
   }
 }
-// ----- play new game -----
-function newGame() {
-  winningpage.classList.add("hidden");
-  overlay.classList.add("hidden");
-  let scores = document.querySelectorAll(".score");
-  scores.forEach((item) => (item.textContent = 0));
-  let currentScores = document.querySelectorAll(".current-score");
-  currentScores.forEach((item) => (item.textContent = 0));
-  dice.classList.add("hidden");
-  player1.classList.remove("player--active");
-  player0.classList.add("player--active");
-  playerActive = document.querySelector(".player--active");
-  currentScore = playerActive.querySelector(".current-score");
-  score = playerActive.querySelector(".score");
-}
 
 //--------------------------- buttons ---------------------------
 //---------------------------------------------------------------
 // ----- roll button -----
 btnroll.addEventListener("click", function () {
-  if (
-    playerActive.querySelector(".name").value !== "BOT" &&
-    funcIsRunning === false
-  ) {
-    dice.classList.remove("hidden");
-    playDice();
+  if (funcIsRunning) return;
+  dice.classList.remove("hidden");
+  if (multiplayerIsOn) {
+    return playDice();
   }
+  if (player0.classList.contains("player--active")) playDice();
 });
-// ----- hold button -----
+
 btnhold.addEventListener("click", function () {
   if (
-    playerActive.querySelector(".name").value !== "BOT" &&
-    funcIsRunning === false &&
-    !dice.classList.contains("hidden") &&
-    Number(currentScore.textContent) !== 0
+    (!funcIsRunning &&
+      !multiplayerIsOn &&
+      player0.classList.contains("player--active") &&
+      +currentScore.textContent !== 0) ||
+    (!funcIsRunning && multiplayerIsOn && +currentScore.textContent !== 0)
   ) {
-    setTimeout(hold, 10);
+    hold();
   }
 });
-// ----- information page button -----
-howto.addEventListener("click", function () {
-  overlay.classList.remove("hidden");
-  howtopage.classList.remove("hidden");
-});
-// ----- close information page button -----
-closeinfo.addEventListener("click", function () {
-  overlay.classList.add("hidden");
-  howtopage.classList.add("hidden");
-});
-// ----- close multiplayer page button -----
-closemulti.addEventListener("click", function () {
-  overlay.classList.add("hidden");
-  selectmulti.classList.add("hidden");
-});
+
+btnnew.addEventListener("click", newGame);
+carryon.addEventListener("click", newGame);
+
 // ----- Multi player  button -----
 btnmulti.addEventListener("click", function () {
   overlay.classList.add("hidden");
   selectmulti.classList.add("hidden");
   newGame();
   multiplayerIsOn = true;
-  player1.removeChild(player1.firstElementChild);
 
-  divele.innerHTML =
-    '<input onClick="this.setSelectionRange(0, this.value.length)" class="name" type="text" id="name--1" value="PLAYER 2"/>';
-
-  player1.prepend(divele);
-  player1.classList.remove("bot");
+  document.querySelector(".player--2-name").classList.remove("hidden");
+  document.querySelector(".bot--name").classList.add("hidden");
 });
 // ----- Single player button -----
 btnsingle.addEventListener("click", function () {
@@ -278,20 +199,13 @@ btnsingle.addEventListener("click", function () {
   selectmulti.classList.add("hidden");
   newGame();
   multiplayerIsOn = false;
-  player1.removeChild(player1.firstElementChild);
 
-  // divele.innerHTML =
-  //   '<input onClick="this.setSelectionRange(0, this.value.length)" class="name" type="text" id="name--1" value="BOT"/>';
-  divele.innerHTML = '<h2 class="name" id="name--1" value="BOT">BOT</h2>';
-  player1.prepend(divele);
-  player1.classList.add("bot");
+  document.querySelector(".player--2-name").classList.add("hidden");
+  document.querySelector(".bot--name").classList.remove("hidden");
 });
+
 // ----- player option page button -----
 consolep.addEventListener("click", function () {
   overlay.classList.remove("hidden");
   selectmulti.classList.remove("hidden");
 });
-// ----- new game button -----
-btnnew.addEventListener("click", newGame);
-// ----- close rotate button -----
-carryon.addEventListener("click", newGame);

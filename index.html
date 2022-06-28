@@ -17,7 +17,7 @@
   </head>
   <body>
     <main>
-      <div class="playersbox">
+      <div class="players--box">
         <section class="player player--0 player--active">
           <input
             onClick="this.setSelectionRange(0, this.value.length)"
@@ -28,8 +28,8 @@
           />
           <p class="score" id="score--0">0</p>
           <div class="current">
-            <p class="current-label">Current</p>
-            <p class="current-score" id="current--0">0</p>
+            <p class="current--label">Current</p>
+            <p class="current--score" id="current--0">0</p>
           </div>
         </section>
         <section class="player player--1 bot">
@@ -43,19 +43,16 @@
           <h2 class="name bot--name" id="name--1" value="BOT">BOT</h2>
           <p class="score" id="score--1">0</p>
           <div class="current">
-            <p class="current-label">Current</p>
-            <p class="current-score" id="current--1">0</p>
+            <p class="current--label">Current</p>
+            <p class="current--score" id="current--1">0</p>
           </div>
         </section>
       </div>
       <img src="media/dice-5.png" alt="Playing dice" class="dice hidden" />
       <div class="buttons">
-        <i class="fas fa-info howto opt--btn"></i>
-        <i
-          class="fas fa-expand-arrows-alt full opt--btn"
-          onclick="openFullscreen();"
-        ></i>
-        <i class="fas fa-gamepad console opt--btn"></i>
+        <i class="fas fa-info info--icon btn--icon"></i>
+        <i class="fas fa-expand fullscreen btn--icon"></i>
+        <i class="fas fa-gamepad multi--icon btn--icon"></i>
         <button class="btn btn--new">
           <i class="fas fa-repeat"></i> New game
         </button>
@@ -71,20 +68,21 @@
       <div class="orient">
         <p>Please turn phone to landscape mode.</p>
         <img
-          class="rotatephone"
+          class="rotate--phone"
           src="media/rotatedevice.gif"
           alt="rotate phone"
         />
       </div>
-      <div class="winningpage hidden">
-        <span class="winneris">🏆 The winner is :</span
-        ><span class="playersscores"></span>
-        <div class="winnerName"></div>
+      <div class="winner--box hidden">
+        <span class="winner">🏆 The winner is :</span
+        ><span class="players--scores"></span>
+        <div class="winner--name"></div>
 
-        <button class="carryon">Carry on</button>
+        <button class="play--again">Play Again</button>
       </div>
-      <div class="howtopage hidden">
-        <button class="closeinfo">&times;</button>
+      <div class="info--box hidden">
+        <button class="info--close close">&times;</button>
+        <div class="box--title">How to play:</div>
         <p>
           Each turn, a player repeatedly rolls a dice until either a 1 is rolled
           or the player decides to "hold":
@@ -105,16 +103,12 @@
         </ul>
         <p>The first player to score 100 or more points wins.</p>
       </div>
-      <div class="selectmulti hidden">
-        <button class="closemulti">&times;</button>
-        <div class="multioptions">
-          <button class="btn--multi">
-            <i class="fas fa-user"></i> : <i class="fas fa-user"></i> Two Player
-          </button>
-          <button class="btn--single">
-            <i class="fas fa-user"></i> : <i class="fas fa-robot"></i> Single
-            Player
-          </button>
+      <div class="multi--box hidden">
+        <button class="multi--close close">&times;</button>
+        <div class="box--title">Select number of player:</div>
+        <div class="multi--opts">
+          <button class="btn--multi">Two Player</button>
+          <button class="btn--single">Single Player</button>
         </div>
       </div>
       <div class="overlay hidden"></div>

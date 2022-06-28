@@ -1,4 +1,5 @@
 "use strict";
+
 const diceList = [
   "media/dice-1.png",
   "media/dice-2.png",
@@ -8,36 +9,37 @@ const diceList = [
   "media/dice-6.png",
   "media/dicegif3.gif",
 ];
+const el = document.documentElement;
 const dice = document.querySelector(".dice");
-const btnroll = document.querySelector(".btn--roll");
-const btnnew = document.querySelector(".btn--new");
-const btnhold = document.querySelector(".btn--hold");
-let playerActive = document.querySelector(".player--active");
-let currentScore = playerActive.querySelector(".current-score");
-let score = playerActive.querySelector(".score");
-
-const player0 = document.querySelector(".player--0");
-const player1 = document.querySelector(".player--1");
-const winningpage = document.querySelector(".winningpage");
 const overlay = document.querySelector(".overlay");
-const carryon = document.querySelector(".carryon");
-const closeinfo = document.querySelector(".closeinfo");
-const howto = document.querySelector(".howto");
-const howtopage = document.querySelector(".howtopage");
-const full = document.querySelector(".full");
-const elem = document.documentElement;
+const btnnew = document.querySelector(".btn--new");
+const btnroll = document.querySelector(".btn--roll");
+const btnhold = document.querySelector(".btn--hold");
+const player0 = document.querySelector(".player--0");
+const infoBox = document.querySelector(".info--box");
+const player1 = document.querySelector(".player--1");
 const btnmulti = document.querySelector(".btn--multi");
+const infoIcon = document.querySelector(".info--icon");
+const multiBox = document.querySelector(".multi--box");
+const winnerBox = document.querySelector(".winner--box");
+const playAgain = document.querySelector(".play--again");
+const infoClose = document.querySelector(".info--close");
+const fullscreen = document.querySelector(".fullscreen");
 const btnsingle = document.querySelector(".btn--single");
-const consolep = document.querySelector(".console");
-const selectmulti = document.querySelector(".selectmulti");
-const closemulti = document.querySelector(".closemulti");
-const playersscores = document.querySelector(".playersscores");
-let multiplayerIsOn = false;
-let funcIsRunning = false;
+const multiIcon = document.querySelector(".multi--icon");
+const multiClose = document.querySelector(".multi--close");
+const playersScores = document.querySelector(".players--scores");
 
-//--------------------------- functions ---------------------------
+let funcIsRunning = false;
+let multiplayerIsOn = false;
+let playerActive = document.querySelector(".player--active");
+let score = playerActive.querySelector(".score");
+let currentScore = playerActive.querySelector(".current--score");
+
+//--------------------------- functions -------------------------
 //---------------------------------------------------------------
 
+// play dice and return number
 const playDice = async function () {
   funcIsRunning = true;
   dice.src = diceList[6];
@@ -55,42 +57,47 @@ const playDice = async function () {
   return +currentScore.textContent;
 };
 
+// wait function
 const wait = function (seconds) {
   return new Promise(function (resolve) {
     setTimeout(resolve, seconds * 1000);
   });
 };
 
+// change player
 const changePlayer = function () {
   player0.classList.toggle("player--active");
   player1.classList.toggle("player--active");
   playerActive = document.querySelector(".player--active");
-  currentScore = playerActive.querySelector(".current-score");
+  currentScore = playerActive.querySelector(".current--score");
   score = playerActive.querySelector(".score");
 
   if (!multiplayerIsOn && player1.classList.contains("player--active"))
     playBot();
 };
 
+// hold current score
 const hold = function () {
   score.textContent = +score.textContent + +currentScore.textContent;
   currentScore.textContent = 0;
-  if (+score.textContent >= 5) return won();
+  if (+score.textContent >= 100) return won();
   changePlayer();
 };
 
+// bot play strategy
 const playBot = async function () {
   await wait(0.9);
   const score = await playDice();
   await wait(0.9);
   if (player0.classList.contains("player--active")) return;
-  if (score > 5) {
+  if (score > 15) {
     hold();
   } else {
     playBot();
   }
 };
 
+// show who won
 const won = function () {
   let winner;
   if (player0.classList.contains("player--active")) {
@@ -101,47 +108,49 @@ const won = function () {
     winner = "BOT";
   }
 
-  winningpage.classList.remove("hidden");
+  winnerBox.classList.remove("hidden");
   overlay.classList.remove("hidden");
-  document.querySelector(".winnerName").textContent = `${winner}`;
-  playersscores.textContent = ` (${
+  document.querySelector(".winner--name").textContent = `${winner}`;
+  playersScores.textContent = ` (${
     player0.querySelector(".score").textContent
   } vs ${player1.querySelector(".score").textContent})`;
 };
 
-// ----- play new game -----
+//  play new game
 const newGame = function () {
-  winningpage.classList.add("hidden");
+  winnerBox.classList.add("hidden");
   overlay.classList.add("hidden");
 
   document.querySelectorAll(".score").forEach((item) => (item.textContent = 0));
 
   document
-    .querySelectorAll(".current-score")
+    .querySelectorAll(".current--score")
     .forEach((item) => (item.textContent = 0));
   dice.classList.add("hidden");
 
   player1.classList.remove("player--active");
   player0.classList.add("player--active");
   playerActive = document.querySelector(".player--active");
-  currentScore = playerActive.querySelector(".current-score");
+  currentScore = playerActive.querySelector(".current--score");
   score = playerActive.querySelector(".score");
 };
 
-// ----- fullscreen -----
-function openFullscreen() {
-  let src = full.getAttribute("src");
-  if (src === "media/full.svg") {
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) {
+//  fullscreen page
+const openFullScreen = function () {
+  let isFull = fullscreen.classList.contains("fa-expand");
+
+  if (isFull) {
+    if (el.requestFullscreen) {
+      el.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
       /* Safari */
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    } else if (el.msRequestFullscreen) {
       /* IE11 */
-      elem.msRequestFullscreen();
+      el.msRequestFullscreen();
     }
-    full.setAttribute("src", "media/unfull.svg");
+    fullscreen.classList.add("fa-compress");
+    fullscreen.classList.remove("fa-expand");
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen();
@@ -152,13 +161,20 @@ function openFullscreen() {
       /* IE11 */
       document.msExitFullscreen();
     }
-    full.setAttribute("src", "media/full.svg");
+    fullscreen.classList.remove("fa-compress");
+    fullscreen.classList.add("fa-expand");
   }
-}
+};
 
-//--------------------------- buttons ---------------------------
+//  close page
+const close = function () {
+  overlay.classList.add("hidden");
+  this.parentElement.classList.add("hidden");
+};
+
+//--------------------------- handlers  -------------------------
 //---------------------------------------------------------------
-// ----- roll button -----
+//  roll button
 btnroll.addEventListener("click", function () {
   if (funcIsRunning) return;
   dice.classList.remove("hidden");
@@ -168,6 +184,7 @@ btnroll.addEventListener("click", function () {
   if (player0.classList.contains("player--active")) playDice();
 });
 
+//  hold button
 btnhold.addEventListener("click", function () {
   if (
     (!funcIsRunning &&
@@ -180,23 +197,27 @@ btnhold.addEventListener("click", function () {
   }
 });
 
-btnnew.addEventListener("click", newGame);
-carryon.addEventListener("click", newGame);
+// new game and play again button
+btnnew.addEventListener("click", function () {
+  if (!funcIsRunning) newGame();
+});
+playAgain.addEventListener("click", newGame);
 
-// ----- Multi player  button -----
+//  Multi player  button
 btnmulti.addEventListener("click", function () {
   overlay.classList.add("hidden");
-  selectmulti.classList.add("hidden");
+  multiBox.classList.add("hidden");
   newGame();
   multiplayerIsOn = true;
 
   document.querySelector(".player--2-name").classList.remove("hidden");
   document.querySelector(".bot--name").classList.add("hidden");
 });
-// ----- Single player button -----
+
+//  Single player button
 btnsingle.addEventListener("click", function () {
   overlay.classList.add("hidden");
-  selectmulti.classList.add("hidden");
+  multiBox.classList.add("hidden");
   newGame();
   multiplayerIsOn = false;
 
@@ -204,8 +225,23 @@ btnsingle.addEventListener("click", function () {
   document.querySelector(".bot--name").classList.remove("hidden");
 });
 
-// ----- player option page button -----
-consolep.addEventListener("click", function () {
+//  player option page button
+multiIcon.addEventListener("click", function () {
   overlay.classList.remove("hidden");
-  selectmulti.classList.remove("hidden");
+  multiBox.classList.remove("hidden");
 });
+
+//  information page button
+infoIcon.addEventListener("click", function () {
+  overlay.classList.remove("hidden");
+  infoBox.classList.remove("hidden");
+});
+
+//  close information page
+infoClose.addEventListener("click", close);
+
+//  close multiplayer page
+multiClose.addEventListener("click", close);
+
+// full screen button
+fullscreen.addEventListener("click", openFullScreen);
